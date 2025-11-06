@@ -49,6 +49,9 @@ services:
     deploy:
       placement:
         constraints: ["${NODE}"]
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
     logging:
       driver: loki
       options:
@@ -57,10 +60,3 @@ services:
 networks:
   traefik:
     name: traefik
-    external: true
-
-
-networks:
-  traefik:
-    name: traefik
-    external: true
