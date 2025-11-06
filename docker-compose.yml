@@ -4,10 +4,10 @@ services:
   dispatcher:
     image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.0
     ports:
-      - "${PORT:-8081}:${PORT:-8081}"
+      - "${PORT:-8082}:${PORT:-8082}"
     environment:
       - NODE_ENV=${NODE_ENV:-development}
-      - PORT=${PORT:-8081}
+      - PORT=${PORT:-8082}
       - HOST=${HOST:-0.0.0.0}
       - USE_REDIS=${USE_REDIS:-true}
       - REDIS_HOST=${REDIS_HOST:-localhost}
@@ -41,11 +41,10 @@ services:
       - "traefik.http.routers.dispatcher.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.dispatcher.entrypoints=websecure"
       - "traefik.http.routers.dispatcher.tls.certresolver=lets-encrypt"
-      - "traefik.http.services.dispatcher.loadbalancer.server.port=${PORT:-8081}"
+      - "traefik.http.services.dispatcher.loadbalancer.server.port=${PORT:-8082}"
     deploy:
-      restart_policy:
-        condition: on-failure
-        max_attempts: 3
+      placement:
+        constraints: ["${NODE}"]
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:${PORT:-8081}/health', (r) => process.exit(r.statusCode === 200 ? 0 : 1))"]
       interval: 30s
