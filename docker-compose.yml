@@ -45,6 +45,10 @@ services:
     deploy:
       placement:
         constraints: ["${NODE}"]
+    logging:
+      driver: loki
+      options:
+        loki-url: ${LOKI_URL}
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:${PORT:-8081}/health', (r) => process.exit(r.statusCode === 200 ? 0 : 1))"]
       interval: 30s
