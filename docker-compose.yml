@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # Dispatcher - Aplicación principal (sin Redis, usa almacenamiento en memoria)
+  dispatcher:
+    build:
+      context: .
+      target: runtime
+    container_name: dispatcher-app
+    ports:
+      - "${PORT:-8081}:${PORT:-8081}"
+    env_file:
+      - .env
+    volumes:
+      # Hot reload en desarrollo - montar código fuente
+      - ./src:/app/src
+      - ./logs:/app/logs
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dispatcher.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.dispatcher.entrypoints=websecure"
+      - "traefik.http.routers.dispatcher.tls.certresolver=lets-encrypt"
+      - "traefik.http.services.dispatcher.loadbalancer.server.port=${PORT:-8080}"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8080/health', (r) => process.exit(r.statusCode === 200 ? 0 : 1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  traefik:
+    external:
+      name: traefik
