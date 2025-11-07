@@ -44,6 +44,8 @@ services:
       - "traefik.http.routers.dispatcher.entrypoints=websecure"
       - "traefik.http.routers.dispatcher.tls.certresolver=lets-encrypt"
       - "traefik.http.services.dispatcher.loadbalancer.server.port=${PORT:-8082}"
+    networks:
+      - traefik
     deploy:
       placement:
         constraints: ["${NODE}"]
