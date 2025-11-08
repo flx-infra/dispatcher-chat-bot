@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 services:
   dispatcher:
     image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.0
