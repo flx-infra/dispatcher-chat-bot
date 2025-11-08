@@ -57,6 +57,6 @@ services:
 
 networks:
   traefik:
-    name: traefik
-    external: true
+    external:
+      name: traefik
 
