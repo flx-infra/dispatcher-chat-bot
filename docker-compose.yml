@@ -4,7 +4,7 @@ services:
     build:
       context: .
       target: runtime
-    image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.1
+    image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.0
     ports:
       - "${PORT:-8082}:${PORT:-8082}"
     environment:
