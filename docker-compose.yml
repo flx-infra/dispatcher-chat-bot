@@ -5,12 +5,12 @@ services:
     build:
       context: .
       target: runtime
-    image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.4
+    image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.5
     ports:
-      - "${PORT:-8082}:${PORT:-8082}"
+      - "8082:8082"
     environment:
       - NODE_ENV=${NODE_ENV:-production}
-      - PORT=${PORT:-8082}
+      - PORT=8082
       - HOST=${HOST:-0.0.0.0}
       - USE_REDIS=${USE_REDIS:-false}
       - REDIS_HOST=${REDIS_HOST:-redis}
@@ -50,7 +50,7 @@ services:
         - "traefik.enable=true"
         - "traefik.http.routers.${SERVICE_NAME}.entrypoints=web"
         - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`${DOMAIN_NAME}`)"
-        - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=${PORT:-8082}"
+        - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=8082"
     logging:
       driver: loki
       options:
