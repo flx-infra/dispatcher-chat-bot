@@ -1,14 +1,15 @@
 version: '3.9'
+
 services:
   dispatcher:
     build:
       context: .
       target: runtime
-    image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.1
+    image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.3
     ports:
       - "${PORT:-8082}:${PORT:-8082}"
     environment:
-      - NODE_ENV=${NODE_ENV:-development}
+      - NODE_ENV=${NODE_ENV:-production}
       - PORT=${PORT:-8082}
       - HOST=${HOST:-0.0.0.0}
       - USE_REDIS=${USE_REDIS:-false}
@@ -53,7 +54,7 @@ services:
     logging:
       driver: loki
       options:
-       loki-url: ${LOKI_URL}
+        loki-url: ${LOKI_URL}
 
 networks:
   traefik:
