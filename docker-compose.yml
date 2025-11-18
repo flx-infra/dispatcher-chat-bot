@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # Dispatcher - Aplicación principal (sin Redis, usa almacenamiento en memoria)
   dispatcher:
-    image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.3
+    image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.1
     build:
       context: .
       target: runtime
