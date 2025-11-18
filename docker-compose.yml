@@ -59,8 +59,8 @@ services:
       - CIRCUIT_BREAKER_TIMEOUT_MS=${CIRCUIT_BREAKER_TIMEOUT_MS:-10000}
       - CIRCUIT_BREAKER_ERROR_THRESHOLD=${CIRCUIT_BREAKER_ERROR_THRESHOLD:-50}
       - CIRCUIT_BREAKER_RESET_TIMEOUT_MS=${CIRCUIT_BREAKER_RESET_TIMEOUT_MS:-30000}
-    env_file:
-      - .env
+    #env_file:
+    #  - .env
     volumes:
       # Hot reload en desarrollo - montar código fuente
       - ./src:/app/src
