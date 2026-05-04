@@ -4,7 +4,7 @@ services:
     build:
       context: .
       target: runtime
-    image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.34
+    image: fabreguesm/dispatcher_omnicanalidad-dispatcher:1.0.35
     ports:
       - "${PORT:-8082}:${PORT:-8082}"
     environment:
@@ -22,8 +22,13 @@ services:
       - WHATSAPP_APP_SECRET=${WHATSAPP_APP_SECRET}
       - BOT_APP=${BOT_APP}
       - ASESOR_APP=${ASESOR_APP}
+      - ENCUESTADOR_APP=${ENCUESTADOR_APP}
       - ASESOR_CHANNEL_ID=${ASESOR_CHANNEL_ID:-1}
       - ASESOR_API_KEY=${ASESOR_API_KEY}
+      - ENCUESTADOR_STATUS_URL=${ENCUESTADOR_STATUS_URL}
+      - ENCUESTADOR_STATUS_TIMEOUT_MS=${ENCUESTADOR_STATUS_TIMEOUT_MS:-3000}
+      - ENCUESTADOR_API_KEY=${ENCUESTADOR_API_KEY}
+      - ENCUESTADOR_ROUTING_TTL_SECONDS=${ENCUESTADOR_ROUTING_TTL_SECONDS:-600}
       - API_KEY=${API_KEY}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
       - RATE_LIMIT_WINDOW_MS=${RATE_LIMIT_WINDOW_MS:-60000}
